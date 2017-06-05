@@ -1,0 +1,6 @@
+*.iml
+.idea
+transaction_reader*
+vendor/*/
+.project
+.vscode
