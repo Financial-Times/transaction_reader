@@ -72,6 +72,7 @@ func serveEndpoints(appSystemCode string, appName string, port string) {
 	hh := httpHandlers{transactionReaderService{}}
 
 	router.HandleFunc("/transactions/inprogress", hh.getInProgressTransactionsForType)
+	router.HandleFunc("/transactions/byuuid", hh.getTransactionsForUUID)
 
 	if err := http.ListenAndServe(":"+port, router); err != nil {
 		log.Fatalf("Unable to start: %v", err)

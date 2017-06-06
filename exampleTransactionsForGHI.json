@@ -1,0 +1,14 @@
+[
+      {
+          "transactionID": "tid_654321",
+          "UUID": "GHI",
+          "startTime": "2016-06-05T11:49:47.314Z",
+          "endTime": "2016-06-05T11:50:47.314Z"
+      },
+      {
+          "transactionID": "tid_654321",
+          "UUID": "GHI",
+          "startTime": "2016-06-05T11:45:47.314Z",
+          "endTime": "2016-06-05T11:59:47.314Z"
+      }
+]
