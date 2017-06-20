@@ -7,10 +7,14 @@ _Should be the same as the github repo name but it isn't always._
 
 _What is this service and what is it for? What other services does it depend on_
 
-UPP - event reader, reads from DynamoDB
+UPP - event reader, reads from a DynamoDB table, 'Transactions'.
+
+If the table does NOT exist, this service will return no results, rather than erroring.
+
+If the table exists, it is expected to have a primary key of 'transactionID'. It will also have a secondary index on 'UUID' - not unique, there will be multiple records with the same UUID.
 
 ## Installation
-      
+
 _How can I install it_
 
 Download the source code, dependencies and test dependencies:
@@ -24,13 +28,17 @@ Download the source code, dependencies and test dependencies:
 ## Running locally
 _How can I run it_
 
-1. Run the tests and install the binary:
+1. Download and install local DynamoDB: http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/DynamoDBLocal.html
+
+2. Start it running
+
+3. Run the tests and install the binary:
 
         govendor sync
         govendor test -v -race
         go install
 
-2. Run the binary (using the `help` flag to see the available optional arguments):
+4. Run the app binary (using the `help` flag to see the available optional arguments):
 
         $GOPATH/bin/transaction_reader [--help]
 
@@ -38,15 +46,15 @@ Options:
 
         --app-system-code="transaction_reader"            System Code of the application ($APP_SYSTEM_CODE)
         --app-name="transaction_reader"                   Application name ($APP_NAME)
-        --port="8080"                                           Port to listen on ($APP_PORT)
-        
-3. Test:
+        --port="8080"                                     Port to listen on ($APP_PORT)
+
+5. Test:
 
     1. Either using curl:
 
             curl http://localhost:8080/people/143ba45c-2fb3-35bc-b227-a6ed80b5c517 | json_pp
 
-    1. Or using [httpie](https://github.com/jkbrzt/httpie):
+    2. Or using [httpie](https://github.com/jkbrzt/httpie):
 
             http GET http://localhost:8080/people/143ba45c-2fb3-35bc-b227-a6ed80b5c517
 

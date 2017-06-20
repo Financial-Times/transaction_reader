@@ -9,6 +9,9 @@ import (
 	health "github.com/Financial-Times/go-fthealth/v1_1"
 	status "github.com/Financial-Times/service-status-go/httphandlers"
 	log "github.com/Sirupsen/logrus"
+	"github.com/aws/aws-sdk-go/aws"
+	"github.com/aws/aws-sdk-go/aws/session"
+	"github.com/aws/aws-sdk-go/service/dynamodb"
 	"github.com/jawher/mow.cli"
 )
 
@@ -69,7 +72,13 @@ func serveEndpoints(appSystemCode string, appName string, port string) {
 	router.HandleFunc(status.BuildInfoPath, status.BuildInfoHandler)
 
 	//functional endpoints
-	hh := httpHandlers{transactionReaderService{}}
+	sess, err := session.NewSession(&aws.Config{
+		Region:   aws.String("us-west-2"),
+		Endpoint: aws.String("http://localhost:8000")})
+	if err != nil {
+		log.Fatalf("Could not create AWS session %v", err)
+	}
+	hh := httpHandlers{transactionReaderService{dynamodb.New(sess)}}
 
 	router.HandleFunc("/transactions/inprogress", hh.getInProgressTransactionsForType)
 
