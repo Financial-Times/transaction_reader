@@ -41,6 +41,31 @@ func (hh *httpHandlers) getTransactionsExceedingSLA(w http.ResponseWriter, r *ht
 // - ANOTHER PUBLISH HAS SUCCEEDED (we then set the end time for the previous publish to match this end time)
 func (hh *httpHandlers) getTransactionsForUUID(w http.ResponseWriter, r *http.Request) {
 
+	// expect a uuid param
+	uuid := r.URL.Query().Get("uuid")
+	if uuid == "" {
+		log.Errorf("No uuid param supplied")
+		return
+	}
+	after := r.URL.Query().Get("after")
+	if after == "" {
+		log.Errorf("No after param supplied")
+		return
+	}
+	log.Infof("Get transactions for uuid %s which started after %s", uuid, after)
+	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
+
+	if (uuid == "GHI") {
+		jason, err := ioutil.ReadFile("exampleTransactionsForGHI.json")
+		if err != nil {
+			log.Errorf("Failed to read in file, %v", err)
+			return
+		}
+		w.Write([]byte(jason))
+	} else {
+		w.Write([]byte("[]"))
+	}
+	return
 }
 
 // get the event for a particular transaction id (only for debugging really)

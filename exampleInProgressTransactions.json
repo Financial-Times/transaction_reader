@@ -2,12 +2,30 @@
           "transactionID": "tid_123456",
           "UUID": "ABC",
           "startTime": "2016-06-05T11:43:47.314Z",
-          "endTime": ""
+          "mongoTime": "2016-06-05T11:41:47.314Z",
+          "neoTime": "2016-06-05T11:42:47.314Z",
+          "esTime": "2016-06-05T11:50:47.313Z",
+          "notificationTime": "2016-06-05T11:44:47.314Z"
       },
       {
           "transactionID": "tid_654321",
           "UUID": "DEF",
           "startTime": "2016-06-05T11:45:47.314Z",
-          "endTime": ""
+          "mapperTime": "2016-06-05T11:48:47.314Z",
+          "isInvalid": true
+      },
+      {
+          "transactionID": "tid_341",
+          "UUID": "GHI",
+          "startTime": "2016-06-05T11:45:47.314Z",
+          "mongoTime": "2016-06-05T11:44:47.314Z",
+          "notificationTime": "2016-06-05T11:44:47.314Z"
+      },
+      {
+          "transactionID": "tid_098765432",
+          "UUID": "JKL",
+          "startTime": "2016-06-05T11:48:47.314Z",
+          "esTime": "2016-06-05T11:50:47.314Z",
+          "notificationTime": "2016-06-05T12:00:47.314Z"
       }
 ]
